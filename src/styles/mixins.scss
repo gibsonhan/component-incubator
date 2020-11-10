@@ -1,0 +1,25 @@
+// Display text when element is empty.
+@mixin show-text-when-empty($text: "None") {
+  &:empty::after {
+    content: $text;
+    color: $empty-text-color;
+  }
+}
+
+@mixin lightGreyBg() {
+  background-color: $grey05;
+
+  kbd, code, pre {
+    color: lighten($logo-red, 4%);
+  }
+}
+
+@mixin greyBg() {
+  background-color: $grey10;
+  kbd, code, pre {
+    color: lighten($logo-red, 2%);
+  }
+  a {
+    color: saturate($logo-blue, 50);
+  }
+}

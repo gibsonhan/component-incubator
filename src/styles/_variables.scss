@@ -1,0 +1,162 @@
+/* Fonts */
+// duplicate bootstrap's $font-family-sans-serif so we don't have chicken/egg variable definition problem
+$_bootstrap-font-family-sans-serif:  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-title: 'museo-sans-rounded', $_bootstrap-font-family-sans-serif;
+
+/* Font Weights */
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 600;
+$font-weight-bold: 700;
+$font-weight-boldest: 900;
+
+$font-title-weight-light: 100;
+$font-title-weight-normal: 300;
+$font-title-weight-medium: 500;
+$font-title-weight-bold: 700;
+
+// use default $font-size-base, $font-size-sm
+// $font-size-base: 1rem
+$font-size-small: 0.94rem;
+// $font-size-sm: 0.875rem
+$font-size-smallest: 0.8rem;
+
+////
+// COLORS
+// check for accessibility issues at https://color.adobe.com/create/color-accessibility
+////
+
+// Logo colors
+$logo-blue: #336699;
+$logo-red: #c9134a;
+
+// Colors by Hue
+$blue: #2A74DF;
+$green: #0ABC72;
+$red: #c53b3b;
+$yellow: #ffc107; // same as Bootstrap's yellow
+$white: #ffffff;
+
+$contrastLightBlue: #0059ef;
+$contrastDarkBlue: #0000cd;
+$contrastGreen: #047c00;
+$contrastPurple: #a402df;
+$contrastRed: #d80505;
+
+// Colors by Role
+$primary-color: $blue;
+$success-color: $green;
+$danger-color: $red;
+$warning-color: $yellow;
+$info-color: #5BC0DE;
+
+// Resource Type Colors
+$vip-color:        #e4a815; // TODO(markwoon): should darken this, too close to gene-color
+$gene-color:       #ff974e;
+$disease-color:    darken($green, 12);
+$chemical-color:   $primary-color;
+$haplotype-color:  #00B2E7;
+$variant-color:    #46CAD4;
+$literature-color: #975ebe;
+
+// Guideline Source Colors
+$guideline-color_cpic:    #B82C4C;
+$guideline-color_dpwg:    #FF9E00;
+$guideline-color_cpnds:   $blue;
+$guideline-color_default: #788197;
+
+/* Shades of Grey */
+$grey05:  #F6F7F8;
+$grey10:  #ECEDF1;
+$grey20:  #D8DBE2;
+$grey30:  #C5CAD2;
+$grey40:  #B2B7C3;
+$grey50:  #9FA6B5;
+$grey60:  #8B94A6;
+$grey70:  #788197;
+$grey80:  #657188;
+$grey90:  #515F79;
+$grey100: #3E4D6B;
+$grey110: #35415b;
+$grey120: #2b364b;
+
+/* Text Colors */
+$darkest-text-color: #000;
+$dark-text-color:    #111111;
+$normal-text-color:  #222222;
+$light-text-color: #333333;
+$lightest-text-color:   $grey80;
+$text-on-brand-primary-color: #ffffff;
+/* 5% = #e01553 */
+$code-color: lighten($logo-red, 4%);
+$link-color: saturate($logo-blue, 50);
+/*$link-hover-color: $logo-blue;*/
+
+/* UI Element Colors */
+$header-color: $dark-text-color;
+$body-color: $normal-text-color;
+$placeholder-color-large-text: #8B94A6;  // contrast ratio 3.05, minimum for large text
+$placeholder-color: #767679; // contrast ratio 4.52, between grey70 and grey80
+$empty-text-color: $lightest-text-color;
+$border-color: $grey10;
+$hoverable-bg-color: #F4F7FE;
+$table-border-color: $grey10;
+$table-zebra-color: $grey05;
+$hover-color-overlay: rgba(0, 0, 0, 0.1);
+
+/* Drug Label Highlights */
+$highlightLevel1: #E9C5C6;
+$highlightLevel2: #FAEBD0;
+$highlightLevel3: #AFE1D1;
+$highlightLevel4: #BFCFF4;
+
+/* Static pages */
+$outreachPageHeaderBg: #e5ecfa;
+
+/* Sizes */
+// target min-width of 320px - 20px for scrollbar
+$screen-min-width: 300px;
+/* widths (for media query calculations), based on bootstrap's defaults */
+$xs-width-max: 575.98px;
+$sm-width: 576px;
+$sm-width-max: 767.98px;
+$md-width: 768px;
+$md-width-max: 991.98px;
+$lg-width: 992px;
+$xl-width: 1200px;
+$xx-width: 1600px;
+$xxx-width: 1900px;
+
+
+/* Line Heights */
+$line-height-xs: 1.00;
+$line-height-sm: 1.30;
+$line-height-md: 1.50;
+$line-height-lg: 1.65;
+$line-height-xl: 2.00;
+
+$resource-header-height: 8em;
+
+/* Text Widths */
+$character-width: 0.5em;
+$text-width-xl: 120 * $character-width;
+$text-width-lg: 110 * $character-width;
+$text-width-md: 100 * $character-width;
+$text-width-sm:  85 * $character-width;
+$text-width-xs:  70 * $character-width;
+$content-width: 62rem;
+
+// Misc
+$focus-outline-style: thin solid;
+
+/* Z-indexes */
+$z-index-search:                5;
+$z-index-dropdown:             10;
+$z-index-table-shadow:        500;
+$z-index-popover:             600;
+$z-index-table-header-sticky: 800;
+$z-index-left-table:          850;
+$z-index-fixed-mobile-menu:   890;
+$z-index-tooltip:            2500;
+$z-index-feedback:           2600;
+$z-index-modal:              3000;

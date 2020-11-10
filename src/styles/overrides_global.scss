@@ -1,0 +1,120 @@
+/* Font sizes */
+html {
+  font-size: 11px;
+  // 300px
+  min-width: $screen-min-width;
+
+  @media screen and (min-width: map-get($grid-breakpoints, "sm")) { font-size: 12px; }
+  @media screen and (min-width: map-get($grid-breakpoints, "md")) { font-size: 13px; }
+  @media screen and (min-width: map-get($grid-breakpoints, "lg")) { font-size: 14px; }
+  @media screen and (min-width: map-get($grid-breakpoints, "xl")) { font-size: 15px; }
+  @media screen and (min-width: map-get($grid-breakpoints, "xx")) { font-size: 17px; }
+}
+
+h1 {
+  font-family: $font-family-title;
+  font-size: 3.2rem;
+  font-weight: $font-title-weight-light;
+}
+h2 {
+  font-family: $font-family-title;
+  font-size: 2.4rem;
+  font-weight: $font-title-weight-light;
+}
+h3 {
+  font-family: $font-family-title;
+  font-size: 1.5rem;
+  font-weight: $font-title-weight-normal;
+}
+h4 {
+  font-family: $font-family-title;
+  font-size: 1.1rem;
+  font-weight: $font-title-weight-medium;
+}
+h5 {
+  font-family: $font-family-title;
+  font-size: 1.0rem;
+  font-weight: $font-title-weight-bold;
+}
+
+
+/* Font colors */
+body { color: $body-color; }
+
+h1, h2, h3, h4, h5, h6 { color: $header-color; }
+
+a:focus, a:active {
+  outline: $focus-outline-style;
+}
+
+.text-danger {
+  a {
+    color: $danger-color;
+  }
+}
+
+/* Font weight */
+body {
+  /* Our font is pretty bold to begin with, so tone it down. */
+  font-weight: $font-weight-normal;
+
+  /* Fixes OS X rendering fonts too bold. */
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  line-height: $line-height-md;
+}
+
+/* Various element rules */
+img {
+  max-width: 100%;
+}
+
+::placeholder {
+  color: $placeholder-color;
+}
+
+strong {
+  font-weight: $font-weight-medium;
+}
+
+figure {
+  display: table;
+  margin: 2rem 0;
+}
+
+figcaption {
+  display: table-caption;
+  caption-side: bottom;
+  border-top: 1px solid $border-color;
+  margin-top: 10px;
+  padding-top: 10px;
+  font-size: .9em;
+  color: $header-color;
+}
+
+
+/* Whitespace for headings */
+h1 {
+  margin-bottom: 1.25rem;
+}
+
+h2 {
+  margin-bottom: 1.25rem;
+}
+
+h3 {
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
+p + h2 {
+  margin-top: 2rem;
+}
+
+p + h3 {
+  margin-top: 1.5rem;
+}
+
+table, ul {
+  margin-bottom: 1.5rem;
+}
