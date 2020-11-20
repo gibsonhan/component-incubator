@@ -1,0 +1,23 @@
+@import '_variables';
+
+.button {
+    display: flex;
+    flex-direction: row-reverse;
+
+    &__expandFullScreen:hover{
+        color:$logo-blue;
+    }
+
+    &__exitFullScreen:hover{
+        color:$logo-blue
+    }
+
+}
+
+.button__icon {
+    height: 2em;
+    width: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
