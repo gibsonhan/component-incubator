@@ -7,6 +7,7 @@ import './Button.scss'
 
 const propTypes = {
     type: PropTypes.string,
+    state: PropTypes.bool,
     onClick: PropTypes.function,
 }
 
@@ -15,12 +16,10 @@ const renderFullScreenIncon = (state) => {
         ? <FontAwesomeIcon icon="expand-arrows-alt" aria-label="expand fullscreen" />
         : <FontAwesomeIcon icon="times-circle" aria-label="exit fullscreen" />
 }
-export default function Button({ type, onClick }) {
-    const [fullScreen, setFullScreen] = useState(false)
-
-    return <div className="button" onClick={() => setFullScreen(prop => !prop)}>
-        <div className={clsx({ 'button__expandFullScreen': !fullScreen, 'button__exitFullScreen': fullScreen, })}>
-            <i className="button__icon">{renderFullScreenIncon(fullScreen)}</i>
+export default function Button({ type, state, setState }) {
+    return <div className="button" onClick={() => setState(prop => !prop)}>
+        <div className={clsx({ 'button__expandFullScreen': !state, 'button__exitFullScreen': state, })}>
+            <i className="button__icon">{renderFullScreenIncon(state)}</i>
         </div>
     </div>
 }

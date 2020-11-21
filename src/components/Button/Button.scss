@@ -5,7 +5,7 @@
     flex-direction: row-reverse;
 
     &__expandFullScreen:hover{
-        color:$logo-blue;
+            color:$logo-blue;
     }
 
     &__exitFullScreen:hover{
@@ -15,8 +15,7 @@
 }
 
 .button__icon {
-    height: 2em;
-    width: 2em;
+    padding: .5em;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { useExpanded, useSortBy, useTable } from 'react-table';
@@ -23,6 +24,7 @@ const propTypes = {
  * This supports: sorting, expanding
  */
 export default function SimpleTable({ tableProps = {}, columns = [], data, expandable = false, className }) {
+  const [fullscreen, setFullScreen] = useState(false)
   const renderExpansionIcon = (expanded) => {
     if (expanded) {
       return <FontAwesomeIcon icon="chevron-right" className="simpleTable__expansion--rotateOpen" />;
@@ -93,61 +95,66 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
   };
 
   return (
-    <>
-      <Button type="fullScreen" />
-      <table {...getTableProps()} className={clsx('simpleTable', className)}>
-        <thead>{
-          headerGroups.map((headerGroup, hdrIdx) => {
-            const isGroup = headerGroups.length > 1 && hdrIdx !== headerGroups.length - 1;
-            return (
-              <tr {...headerGroup.getHeaderGroupProps()} className={clsx({ simpleTable__group: isGroup })}>
-                {headerGroup.headers.map((column, idx) => {
-                  const addBorder = idx > 0 && isGroup;
-                  const headerProps = column.sortable ? column.getSortByToggleProps() : {};
-                  headerProps.className = clsx(column.className, {
-                    'simpleTable__group--border': addBorder,
-                  });
-                  headerProps.style = column.style;
-                  return (
-                    <th {...column.getHeaderProps(headerProps)}>
-                      {column.render('Header')}
-                      {renderSortIcon(column)}
-                    </th>
-                  );
-                })}
-              </tr>
-            );
-          })
-        }
-        </thead>
-        <tbody {...getTableBodyProps()}>{
-          rows.map((row) => {
-            prepareRow(row);
-            return (
-              // eslint-disable-next-line react/prop-types
-              <tr {...row.getRowProps()}>
-                {
-                  // eslint-disable-next-line react/prop-types
-                  row.cells.map((cell) => (
-                    <td
-                      {...cell.getCellProps([
-                        {
-                          className: cell.column.className,
-                          style: cell.column.style,
-                        },
-                      ])}
-                    >
-                      {cell.render('Cell')}
-                    </td>
-                  ))
-                }
-              </tr>
-            );
-          })
-        }
-        </tbody>
-      </table>
-    </>
+    <div className="test0">
+      <div className="test">hello</div>
+      <div className={clsx({ 'simpleTable__container': !fullscreen, 'simpleTable__container--fullscreen': fullscreen })}>
+        <div className="simpleTable__button--container">
+          <Button type="fullScreen" state={fullscreen} setState={setFullScreen} />
+        </div>
+        <table {...getTableProps()} className={clsx('simpleTable', className)}>
+          <thead>{
+            headerGroups.map((headerGroup, hdrIdx) => {
+              const isGroup = headerGroups.length > 1 && hdrIdx !== headerGroups.length - 1;
+              return (
+                <tr {...headerGroup.getHeaderGroupProps()} className={clsx({ simpleTable__group: isGroup })}>
+                  {headerGroup.headers.map((column, idx) => {
+                    const addBorder = idx > 0 && isGroup;
+                    const headerProps = column.sortable ? column.getSortByToggleProps() : {};
+                    headerProps.className = clsx(column.className, {
+                      'simpleTable__group--border': addBorder,
+                    });
+                    headerProps.style = column.style;
+                    return (
+                      <th {...column.getHeaderProps(headerProps)}>
+                        {column.render('Header')}
+                        {renderSortIcon(column)}
+                      </th>
+                    );
+                  })}
+                </tr>
+              );
+            })
+          }
+          </thead>
+          <tbody {...getTableBodyProps()}>{
+            rows.map((row) => {
+              prepareRow(row);
+              return (
+                // eslint-disable-next-line react/prop-types
+                <tr {...row.getRowProps()}>
+                  {
+                    // eslint-disable-next-line react/prop-types
+                    row.cells.map((cell) => (
+                      <td
+                        {...cell.getCellProps([
+                          {
+                            className: cell.column.className,
+                            style: cell.column.style,
+                          },
+                        ])}
+                      >
+                        {cell.render('Cell')}
+                      </td>
+                    ))
+                  }
+                </tr>
+              );
+            })
+          }
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
 
