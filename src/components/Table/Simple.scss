@@ -1,45 +1,28 @@
 @import '_variables';
 
-.test0{
-  width: 600px;
-  margin-left: 200px;
-}
-.test {
-  height: 200px;
-}
 .simpleTable__container{
+    background-color: $white;
     width: inherit;
     height: inherit;
 
     transition: 
-      width .2s ease-out,
-      height .2s ease-out;
+      width .4s ease-out,
+      height .3s ease-out;
 
   &--fullscreen{
+    background-color: $white;
     display: flex;
     flex-direction: column;
     position: absolute;
-    top:0;
-    left:0;
+    top:0%;
+    left:0%;
     width: 100vw;
     height: 100vh;
     max-width: 100%; //100vw includes scrollbar area, this deals with it
 
     transition: 
-      width .5s ease-out,
-      height .5s ease-out;
-      
-    //animation: 10s linear expand;
-  }
-
-  //WIP: I think we need to use keyframes
-  @keyframes expand {
-    to{
-
-    } 
-    from {
-
-    }
+      width .4s ease-out,
+      height .3s ease-out,
   }
 }
 
