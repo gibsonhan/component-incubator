@@ -1,11 +1,33 @@
 @import '_variables';
 
-.button {
+button, input[type="button"] {
+    background: none;
+    color: inherit;
+    outline: none;
+    border: 0;
+	padding: 0;
+	cursor: pointer;
+    font: inherit;
+
+    //WIP: there is a border when pressed
+    &:active, :focus{
+        border: 0;
+    }
+}
+
+button, input[type="button"]::-moz-focus-inner {
+   border: 0;
+}
+
+.button__container{
     display: flex;
     flex-direction: row-reverse;
+}
 
+.button {
     &__expandFullScreen:hover{
             color:$logo-blue;
+
     }
 
     &__exitFullScreen:hover{

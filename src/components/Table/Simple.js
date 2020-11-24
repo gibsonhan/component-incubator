@@ -4,8 +4,8 @@ import clsx from 'clsx';
 import { useExpanded, useSortBy, useTable } from 'react-table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { FULLSCREEN } from '../../global/reserved';
 import Button from '../Button/Button'
-
 import './Simple.scss';
 
 const propTypes = {
@@ -94,10 +94,11 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
     return '';
   };
 
+
   return (
     <div className={clsx({ 'simpleTable__container': !fullscreen, 'simpleTable__container--fullscreen': fullscreen })}>
       <div className="simpleTable__button--container">
-        <Button type="fullScreen" state={fullscreen} setState={setFullScreen} />
+        <Button type={FULLSCREEN} state={fullscreen} onClick={() => setFullScreen(props => !props)} />
       </div>
       <table {...getTableProps()} className={clsx('simpleTable', className)}>
         <thead>{
