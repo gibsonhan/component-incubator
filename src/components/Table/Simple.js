@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { useExpanded, useSortBy, useTable } from 'react-table';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { FILTER, FULLSCREEN, RESET_FILTER, SHOW_FILTER } from '../../global/reserved';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useExpanded, useFilters, useSortBy, useTable } from 'react-table';
+
+import { FILTER, FULLSCREEN, RESET_FILTER } from '../../global/reserved';
+
 import Button from '../Button/Button'
+import ColumnFilter from '../ColumnFilter/ColumnFilter'
+
 import './Simple.scss';
 
 const propTypes = {
@@ -26,7 +30,6 @@ const propTypes = {
 export default function SimpleTable({ tableProps = {}, columns = [], data, expandable = false, className }) {
   const [fullscreen, setFullScreen] = useState(false)
   const [showFilter, setShowFilter] = useState(false)
-  const [resetFilter, setResetFilter] = useState(false)
   const renderExpansionIcon = (expanded) => {
     if (expanded) {
       return <FontAwesomeIcon icon="chevron-right" className="simpleTable__expansion--rotateOpen" />;
@@ -74,13 +77,30 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
     }
   }
 
+  const defaultColumn = useMemo(
+    () => ({
+      Filter: ColumnFilter,
+    }), []
+  )
+
   const {
     getTableProps, // table props from react-table
     getTableBodyProps, // table body props from react-table
     headerGroups, // headerGroups if your table have groupings
     rows, // rows for the table based on the data passed
+    setAllFilters, // hook to pass filter to all filters
     prepareRow, // Prepare the row (this function need to called for each row before getting the row props)
-  } = useTable({ columns, data, ...tableProps }, useSortBy, useExpanded);
+  } = useTable(
+    {
+      columns,
+      data,
+      defaultColumn,
+      ...tableProps
+    },
+    useFilters,
+    useSortBy,
+    useExpanded,
+  );
 
   const renderSortIcon = (col) => {
     if (col.sortable) {
@@ -96,13 +116,12 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
     return '';
   };
 
-
   return (
     <div className={clsx({ 'simpleTable__container': !fullscreen, 'simpleTable__container--fullscreen': fullscreen })}>
       <div className="simpleTable__button--container">
         <Button type={FULLSCREEN} state={fullscreen} onClick={() => setFullScreen(state => !state)} />
         <Button type={FILTER} state={showFilter} onClick={() => setShowFilter(state => !state)} />
-        {showFilter && <Button type={RESET_FILTER} state={false} onClick={() => setResetFilter(state => !state)} />}
+        {showFilter && <Button type={RESET_FILTER} state={false} onClick={() => setAllFilters([])} />}
       </div>
       <table {...getTableProps()} className={clsx('simpleTable', className)}>
 
@@ -122,6 +141,7 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
                     <th {...column.getHeaderProps(headerProps)}>
                       {column.render('Header')}
                       {renderSortIcon(column)}
+                      {showFilter && <div>{column.canFilter ? column.render('Filter') : <></>}</div>}
                     </th>
                   );
                 })}

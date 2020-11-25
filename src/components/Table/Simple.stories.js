@@ -1,7 +1,5 @@
 import React from 'react';
-
 import SimpleTable from 'components/Table/Simple';
-
 export default {
   title: 'Components/Table/SimpleTable',
   component: SimpleTable,
@@ -227,3 +225,10 @@ UnevenHeaderGroup.args = {
   data,
   expandable: true,
 };
+
+/**
+ *  WIP stories
+ *  - Stories
+ *    - full screen
+ *    - filter and reset filter
+ */

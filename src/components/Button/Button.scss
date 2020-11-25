@@ -14,14 +14,9 @@
     &__text{
         font-size: $btn-font-size;
     }
-    &__fullscreen{
-        &--expand:hover{
-            color:$logo-blue;
-        }
 
-        &--exit:hover{
-            color:$logo-blue
-        }
+    &__icon:hover{
+        color:$logo-blue
     }
 }
 
