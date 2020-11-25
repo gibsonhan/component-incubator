@@ -1,7 +1,7 @@
 //Button Types
 export const FULLSCREEN = 'Fullscreen'
 export const FILTER = 'Filter'
-export const RESET_FILTER = 'Reset Filter'
+export const RESET_FILTER = 'Reset Filters'
 
 //Default Button Properties
 export const DEFAULT_ARIA_LABEL = 'default aria label'

@@ -102,12 +102,8 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
       <div className="simpleTable__button--container">
         <Button type={FULLSCREEN} state={fullscreen} onClick={() => setFullScreen(state => !state)} />
         <Button type={FILTER} state={showFilter} onClick={() => setShowFilter(state => !state)} />
-        {/*
-          {showFilter && <Button type={RESET_FILTER} state={resetFilter} onClick={() => { }} />}
-
-         */}
+        {showFilter && <Button type={RESET_FILTER} state={false} onClick={() => setResetFilter(state => !state)} />}
       </div>
-      {showFilter && <div>Hello</div>}
       <table {...getTableProps()} className={clsx('simpleTable', className)}>
 
         <thead>{

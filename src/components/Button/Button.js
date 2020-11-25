@@ -4,23 +4,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 
 import {
+    ACTIVE_ARIA_LABEL,
     ACTIVE_CLASSNAME,
     ACTIVE_ICON,
     ACTIVE_TEXT,
     ACTIVE_TITLE,
+    DEFAULT_ARIA_LABEL,
     DEFAULT_CLASSNAME,
     DEFAULT_ICON,
     DEFAULT_TEXT,
     DEFAULT_TITLE,
-    CLOSE_FUllSCREEN,
-    EXPAND_FULLSCREEN,
-    FULLSCREEN,
-    HIDE_FILTER,
-    RESET_FILTER,
     FILTER,
-    SHOW_FILTER,
-    DEFAULT_ARIA_LABEL,
-    ACTIVE_ARIA_LABEL
+    FULLSCREEN,
+    RESET_FILTER
 } from '../../global/reserved';
 import './Button.scss'
 
@@ -30,27 +26,22 @@ const propTypes = {
     onClick: PropTypes.func,
 }
 
-//Not sure if I should use array or hasttable again to present 
-
-
-
 export default function Button({ type, state, onClick }) {
     const ICON_TABLE = {
         [FULLSCREEN]: {
-            [DEFAULT_ICON]: "expand-arrows-alt",
             [DEFAULT_ARIA_LABEL]: "expand fullscreen",
             [DEFAULT_CLASSNAME]: 'button__fullscreen--expand',
+            [DEFAULT_ICON]: "expand-arrows-alt",
             [DEFAULT_TEXT]: "Expand Fullscreen",
             [DEFAULT_TITLE]: 'Press to Fullscreen',
-            [ACTIVE_ICON]: "times-circle",
-            [DEFAULT_ARIA_LABEL]: "exit fullscreen",
+            [ACTIVE_ARIA_LABEL]: "exit fullscreen",
             [ACTIVE_CLASSNAME]: 'button__fullscreen--exit',
+            [ACTIVE_ICON]: "times-circle",
             [ACTIVE_TEXT]: "Exit Fullscreen",
             [ACTIVE_TITLE]: 'Presss to Exit Fullscreen'
         },
-
         [FILTER]: {
-            [DEFAULT_ARIA_LABEL]: "expand fullscreen",
+            [DEFAULT_ARIA_LABEL]: "show filter",
             [DEFAULT_CLASSNAME]: 'button__filter--show',
             [DEFAULT_ICON]: "filter",
             [DEFAULT_TEXT]: "Show Filter",
@@ -60,6 +51,18 @@ export default function Button({ type, state, onClick }) {
             [ACTIVE_CLASSNAME]: 'button__filter--hide',
             [ACTIVE_TEXT]: "Hide Filter",
             [ACTIVE_TITLE]: 'Presss to Hide Filter'
+        },
+        [RESET_FILTER]: {
+            [DEFAULT_ARIA_LABEL]: "reset filters",
+            [DEFAULT_CLASSNAME]: 'button__filter--reset',
+            [DEFAULT_ICON]: "redo",
+            [DEFAULT_TEXT]: "Reset Filters",
+            [DEFAULT_TITLE]: 'Press to Reset Filters',
+            [ACTIVE_ARIA_LABEL]: "",
+            [ACTIVE_ICON]: "",
+            [ACTIVE_CLASSNAME]: "",
+            [ACTIVE_TEXT]: "",
+            [ACTIVE_TITLE]: ""
         },
     }
 
