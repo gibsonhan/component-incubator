@@ -18,7 +18,9 @@ import {
     HIDE_FILTER,
     RESET_FILTER,
     FILTER,
-    SHOW_FILTER
+    SHOW_FILTER,
+    DEFAULT_ARIA_LABEL,
+    ACTIVE_ARIA_LABEL
 } from '../../global/reserved';
 import './Button.scss'
 
@@ -35,32 +37,42 @@ const propTypes = {
 export default function Button({ type, state, onClick }) {
     const ICON_TABLE = {
         [FULLSCREEN]: {
-            [DEFAULT_ICON]: <FontAwesomeIcon icon="expand-arrows-alt" aria-label="expand fullscreen" />,
+            [DEFAULT_ICON]: "expand-arrows-alt",
+            [DEFAULT_ARIA_LABEL]: "expand fullscreen",
             [DEFAULT_CLASSNAME]: 'button__fullscreen--expand',
-            [DEFAULT_TEXT]: EXPAND_FULLSCREEN,
+            [DEFAULT_TEXT]: "Expand Fullscreen",
             [DEFAULT_TITLE]: 'Press to Fullscreen',
-            [ACTIVE_ICON]: <FontAwesomeIcon icon="times-circle" aria-label="exit fullscreen" />,
+            [ACTIVE_ICON]: "times-circle",
+            [DEFAULT_ARIA_LABEL]: "exit fullscreen",
             [ACTIVE_CLASSNAME]: 'button__fullscreen--exit',
-            [ACTIVE_TEXT]: CLOSE_FUllSCREEN,
+            [ACTIVE_TEXT]: "Exit Fullscreen",
             [ACTIVE_TITLE]: 'Presss to Exit Fullscreen'
         },
 
         [FILTER]: {
-            [DEFAULT_ICON]: <FontAwesomeIcon icon="filter" aria-label="expand fullscreen" />,
+            [DEFAULT_ARIA_LABEL]: "expand fullscreen",
             [DEFAULT_CLASSNAME]: 'button__filter--show',
-            [DEFAULT_TEXT]: SHOW_FILTER,
+            [DEFAULT_ICON]: "filter",
+            [DEFAULT_TEXT]: "Show Filter",
             [DEFAULT_TITLE]: 'Press to Show Filter',
-            [ACTIVE_ICON]: <FontAwesomeIcon icon="filter" aria-label="exit fullscreen" />,
+            [ACTIVE_ARIA_LABEL]: "hide filter",
+            [ACTIVE_ICON]: "filter",
             [ACTIVE_CLASSNAME]: 'button__filter--hide',
-            [ACTIVE_TEXT]: HIDE_FILTER,
+            [ACTIVE_TEXT]: "Hide Filter",
             [ACTIVE_TITLE]: 'Presss to Hide Filter'
         },
     }
 
     function renderIcon(key, state) {
-        return state === false
+        const ICON = state === false
             ? ICON_TABLE[key][DEFAULT_ICON]
             : ICON_TABLE[key][ACTIVE_ICON]
+
+        const AIRA = state === false
+            ? ICON_TABLE[key][DEFAULT_ARIA_LABEL]
+            : ICON_TABLE[key][ACTIVE_ARIA_LABEL]
+
+        return <FontAwesomeIcon icon={ICON} aria-label={AIRA} />
     }
 
     function renderTitle(key, state) {

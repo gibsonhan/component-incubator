@@ -1,17 +1,17 @@
+//Button Types
 export const FULLSCREEN = 'Fullscreen'
-export const EXPAND_FULLSCREEN = 'Expand Fullscreen'
-export const CLOSE_FUllSCREEN = 'Close Fullscreen'
-
 export const FILTER = 'Filter'
 export const RESET_FILTER = 'Reset Filter'
-export const SHOW_FILTER = 'Show Filter'
-export const HIDE_FILTER = 'Hide Filter'
 
+//Default Button Properties
+export const DEFAULT_ARIA_LABEL = 'default aria label'
 export const DEFAULT_CLASSNAME = 'default classname'
 export const DEFAULT_ICON = 'default icon'
 export const DEFAULT_TITLE = 'default title'
 export const DEFAULT_TEXT = 'default text'
 
+//Active Button Properties
+export const ACTIVE_ARIA_LABEL = 'default aria label'
 export const ACTIVE_CLASSNAME = 'active classname'
 export const ACTIVE_ICON = 'active icon'
 export const ACTIVE_TITLE = 'active title'
