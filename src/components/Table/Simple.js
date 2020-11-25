@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { useExpanded, useSortBy, useTable } from 'react-table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { FULLSCREEN } from '../../global/reserved';
+import { FILTER, FULLSCREEN, RESET_FILTER, SHOW_FILTER } from '../../global/reserved';
 import Button from '../Button/Button'
 import './Simple.scss';
 
@@ -25,6 +25,8 @@ const propTypes = {
  */
 export default function SimpleTable({ tableProps = {}, columns = [], data, expandable = false, className }) {
   const [fullscreen, setFullScreen] = useState(false)
+  const [showFilter, setShowFilter] = useState(false)
+  const [resetFilter, setResetFilter] = useState(false)
   const renderExpansionIcon = (expanded) => {
     if (expanded) {
       return <FontAwesomeIcon icon="chevron-right" className="simpleTable__expansion--rotateOpen" />;
@@ -98,9 +100,16 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
   return (
     <div className={clsx({ 'simpleTable__container': !fullscreen, 'simpleTable__container--fullscreen': fullscreen })}>
       <div className="simpleTable__button--container">
-        <Button type={FULLSCREEN} state={fullscreen} onClick={() => setFullScreen(props => !props)} />
+        <Button type={FULLSCREEN} state={fullscreen} onClick={() => setFullScreen(state => !state)} />
+        <Button type={FILTER} state={showFilter} onClick={() => setShowFilter(state => !state)} />
+        {/*
+          {showFilter && <Button type={RESET_FILTER} state={resetFilter} onClick={() => { }} />}
+
+         */}
       </div>
+      {showFilter && <div>Hello</div>}
       <table {...getTableProps()} className={clsx('simpleTable', className)}>
+
         <thead>{
           headerGroups.map((headerGroup, hdrIdx) => {
             const isGroup = headerGroups.length > 1 && hdrIdx !== headerGroups.length - 1;

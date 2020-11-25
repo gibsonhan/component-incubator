@@ -16,7 +16,9 @@ import {
     EXPAND_FULLSCREEN,
     FULLSCREEN,
     HIDE_FILTER,
-    RESET_FILTER
+    RESET_FILTER,
+    FILTER,
+    SHOW_FILTER
 } from '../../global/reserved';
 import './Button.scss'
 
@@ -41,6 +43,17 @@ export default function Button({ type, state, onClick }) {
             [ACTIVE_CLASSNAME]: 'button__fullscreen--exit',
             [ACTIVE_TEXT]: CLOSE_FUllSCREEN,
             [ACTIVE_TITLE]: 'Presss to Exit Fullscreen'
+        },
+
+        [FILTER]: {
+            [DEFAULT_ICON]: <FontAwesomeIcon icon="filter" aria-label="expand fullscreen" />,
+            [DEFAULT_CLASSNAME]: 'button__filter--show',
+            [DEFAULT_TEXT]: SHOW_FILTER,
+            [DEFAULT_TITLE]: 'Press to Show Filter',
+            [ACTIVE_ICON]: <FontAwesomeIcon icon="filter" aria-label="exit fullscreen" />,
+            [ACTIVE_CLASSNAME]: 'button__filter--hide',
+            [ACTIVE_TEXT]: HIDE_FILTER,
+            [ACTIVE_TITLE]: 'Presss to Hide Filter'
         },
     }
 
