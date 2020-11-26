@@ -29,7 +29,9 @@ const propTypes = {
  */
 export default function SimpleTable({ tableProps = {}, columns = [], data, expandable = false, className }) {
   const [fullscreen, setFullScreen] = useState(false)
-  const [showFilter, setShowFilter] = useState(false)
+  const [showFilter, setShowFilter] = useState(true)
+  const [filter, setFilter] = useState([{}])
+
   const renderExpansionIcon = (expanded) => {
     if (expanded) {
       return <FontAwesomeIcon icon="chevron-right" className="simpleTable__expansion--rotateOpen" />;
@@ -83,6 +85,23 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
     }), []
   )
 
+  function setFilterFn(rows, id, filterValue, columnIds) {
+    console.log('inside')
+    return rows.filter(row => {
+      const roleValue = row.values[id]
+      console.log(roleValue)
+    })
+  }
+
+  setFilter.autoRemove = val => !val
+
+  const filterTypes = React.useMemo(
+    () => ({
+      setFilter: setFilterFn
+    }),
+    []
+  )
+
   const {
     getTableProps, // table props from react-table
     getTableBodyProps, // table body props from react-table
@@ -95,6 +114,7 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
       columns,
       data,
       defaultColumn,
+      filterTypes,
       ...tableProps
     },
     useFilters,

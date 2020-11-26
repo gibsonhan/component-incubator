@@ -1,8 +1,5 @@
-import { filter } from 'lodash'
-import './ColumnFilter.scss'
-
 export default function ColumnFilter({
-    column: { filterValue, preFilteredRows, setFilter }
+    column: { filterValue, setFilter },
 }) {
     return <div className='columnFilter__container'>
         <input

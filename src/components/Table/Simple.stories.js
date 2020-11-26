@@ -1,5 +1,9 @@
 import React from 'react';
+
 import SimpleTable from 'components/Table/Simple';
+import BoolFilter from '../BoolFilter.js/BoolFilter';
+import SetFilter from '../SetFilter.js/SetFilter';
+import FormatSetCell from 'components/Cell/FormatSetCell'
 export default {
   title: 'Components/Table/SimpleTable',
   component: SimpleTable,
@@ -24,11 +28,30 @@ const ageCol = {
   sortable: true,
 };
 
+const colorCol = {
+  id: 'color',
+  accessor: 'color',
+  Header: 'Color',
+  sortable: true,
+  Filter: SetFilter,
+  Cell: FormatSetCell,
+};
+
+const boolCol = {
+  id: 'bool',
+  accessor: 'bool',
+  Header: 'Bool',
+  sortable: true,
+  Filter: BoolFilter,
+}
+
 const data = [
   {
     firstName: 'Joe',
     lastName: 'Jackson',
     age: 10,
+    color: ['yellow', 'green', 'blue'],
+    bool: 'true',
     subRows: [
       {
         firstName: 'Jeff',
@@ -44,6 +67,8 @@ const data = [
     firstName: 'Janet',
     lastName: 'Jackson',
     age: 10,
+    bool: 'false',
+    color: ['orange'],
     subRows: [
       {
         firstName: 'Jill',
@@ -175,7 +200,7 @@ const data = [
   },
 ];
 
-const defaultCols = [{ ...firstNameCol }, { ...lastNameCol }, { ...ageCol }];
+const defaultCols = [{ ...firstNameCol }, { ...lastNameCol }, { ...ageCol }, { ...colorCol }, { ...boolCol }];
 const defaultTemplate = (args) => (<SimpleTable {...args} />);
 
 export const Default = defaultTemplate.bind();
