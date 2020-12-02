@@ -84,6 +84,7 @@ const data = [
     firstName: 'Sally',
     lastName: 'Simpson',
     age: 20,
+    color: ['green', 'black'],
     subRows: [
       {
         firstName: 'Sasha',

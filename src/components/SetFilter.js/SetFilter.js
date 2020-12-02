@@ -1,18 +1,20 @@
-import { set } from 'lodash'
-import React, { useMemo } from 'react'
-import { useRowSelect } from 'react-table'
-
+import { useMemo } from 'react'
+/**
+ *  For Filter Set
+ *  Row Data should be in an array.
+ *  Eg: 
+ *      ['Red']
+ *      ['Red', 'White', 'Blue']
+ */
 export default function SetFilter({
     column: { filterValue, id, preFilteredRows, setFilter },
 }) {
-
     const options = useMemo(() => {
         let set = new Set()
         preFilteredRows.forEach(row => {
             let rowData = row.values[id]
             if (rowData === undefined) return
-            //if data row contains a set. unpack and store into set
-            if (rowData.length > 1) {
+            if (rowData?.length > 1) {
                 rowData.forEach(ele => {
                     set.add(ele)
                 })
