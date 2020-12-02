@@ -4,6 +4,7 @@ import SimpleTable from 'components/Table/Simple';
 import NestedSetSelectFilter from 'components/SelectOptionFilter/NestedSetSelectFilter';
 import StandardSelectFilter from 'components/SelectOptionFilter/StandardSelectFilter';
 import FormatSetCell from 'components/Cell/FormatSetCell'
+import { appendData, appendSetData } from '../../dataGenerator/appendData';
 
 export default {
   title: 'Components/Table/SimpleTable',
@@ -51,8 +52,6 @@ const data = [
     firstName: 'Joe',
     lastName: 'Jackson',
     age: 10,
-    color: ['yellow', 'green', 'blue'],
-    bool: 'true',
     subRows: [
       {
         firstName: 'Jeff',
@@ -68,8 +67,6 @@ const data = [
     firstName: 'Janet',
     lastName: 'Jackson',
     age: 10,
-    bool: 'false',
-    color: ['orange'],
     subRows: [
       {
         firstName: 'Jill',
@@ -202,7 +199,7 @@ const data = [
   },
 ];
 
-const defaultCols = [{ ...firstNameCol }, { ...lastNameCol }, { ...ageCol }, { ...colorCol }, { ...boolCol }];
+const defaultCols = [{ ...firstNameCol }, { ...lastNameCol }, { ...ageCol }];
 const defaultTemplate = (args) => (<SimpleTable {...args} />);
 
 export const Default = defaultTemplate.bind();
@@ -253,9 +250,17 @@ UnevenHeaderGroup.args = {
   expandable: true,
 };
 
-/**
- *  WIP stories
- *  - Stories
- *    - full screen
- *    - filter and reset filter
- */
+//WIP need to handle column sort
+export const NestedSetOptionFilter = defaultTemplate.bind();
+NestedSetOptionFilter.args = {
+  columns: [...defaultCols, { ...colorCol }],
+  data: appendSetData(data, 'color', ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violent'].sort()),
+  expandable: false
+}
+
+//export const BooleanOptionFilter = defaultTemplate.bind();
+//BooleanOptionFilter.args = {
+//  columns: [...defaultCols, { ...boolCol }],
+//  data: appendData(data, 'bool', ['true', 'false']),
+//  expandable: false,
+//}

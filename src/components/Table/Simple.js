@@ -81,6 +81,7 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
   const defaultColumn = useMemo(
     () => ({
       Filter: ColumnFilter,
+      expandable: false,
     }), []
   )
 
