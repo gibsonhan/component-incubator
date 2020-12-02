@@ -258,9 +258,9 @@ NestedSetOptionFilter.args = {
   expandable: false
 }
 
-//export const BooleanOptionFilter = defaultTemplate.bind();
-//BooleanOptionFilter.args = {
-//  columns: [...defaultCols, { ...boolCol }],
-//  data: appendData(data, 'bool', ['true', 'false']),
-//  expandable: false,
-//}
+export const BooleanOptionFilter = defaultTemplate.bind();
+BooleanOptionFilter.args = {
+  columns: [...defaultCols, { ...boolCol }],
+  data: appendData(data, 'bool', ['true', 'false']),
+  expandable: false,
+}

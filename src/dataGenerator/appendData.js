@@ -1,8 +1,8 @@
+function randNum(range) {
+    return Math.floor(Math.random() * Math.floor(range))
+}
+
 function appendSetData(data, id, newData) {
-    /** Generate 2 rand Num between 0, and length of new Data
-     *  id: newData.slice(n1, n2)
-     *  
-     */
     return data.map((obj, indx) => {
         if (indx % 7 === 0) {
             //every indice w/ remainder 0 add entire set of data
@@ -24,10 +24,14 @@ function appendSetData(data, id, newData) {
     }
 }
 
-function randNum(range) {
-    return Math.floor(Math.random() * Math.floor(range))
+function appendData(data, id, newData) {
+    return data.map(obj => {
+        let a = randNum(newData.length)
+        return { ...obj, [id]: newData[a] }
+    })
 }
 
 export {
     appendSetData,
+    appendData,
 }
