@@ -14,7 +14,6 @@ export default function StandardSelectFilter({
             if (row.values[id] === undefined) return
             set.add(row.values[id])
         })
-        console.log('what is set', set)
         return [...set.values()]
 
     }, [id, preFilteredRows])
