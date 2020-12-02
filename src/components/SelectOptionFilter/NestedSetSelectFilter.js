@@ -6,12 +6,12 @@ import { useMemo } from 'react'
  *      ['Red']
  *      ['Red', 'White', 'Blue']
  */
-export default function SetFilter({
+export default function NestedSetSelectFilter({
     column: { filterValue, id, preFilteredRows, setFilter },
 }) {
     const options = useMemo(() => {
         let set = new Set()
-        preFilteredRows.forEach(row => {
+        preFilteredRows?.forEach(row => {
             let rowData = row.values[id]
             if (rowData === undefined) return
             if (rowData?.length > 1) {

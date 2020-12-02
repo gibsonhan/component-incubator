@@ -1,18 +1,22 @@
 import { useMemo } from "react"
-
+import { useRowSelect } from "react-table";
 /**
  *  For Stand Select Filter row value are string
  *  "true" or "false"
  */
+
 export default function StandardSelectFilter({
     column: { filterValue, id, preFilteredRows, setFilter }
 }) {
     const options = useMemo(() => {
         const set = new Set();
         preFilteredRows?.forEach(row => {
+            if (row.values[id] === undefined) return
             set.add(row.values[id])
         })
+        console.log('what is set', set)
         return [...set.values()]
+
     }, [id, preFilteredRows])
 
     return (<select

@@ -1,9 +1,10 @@
 import React from 'react';
 
 import SimpleTable from 'components/Table/Simple';
-import BoolFilter from '../BoolFilter.js/BoolFilter';
-import SetFilter from '../SetFilter.js/SetFilter';
+import NestedSetSelectFilter from 'components/SelectOptionFilter/NestedSetSelectFilter';
+import StandardSelectFilter from 'components/SelectOptionFilter/StandardSelectFilter';
 import FormatSetCell from 'components/Cell/FormatSetCell'
+
 export default {
   title: 'Components/Table/SimpleTable',
   component: SimpleTable,
@@ -33,7 +34,7 @@ const colorCol = {
   accessor: 'color',
   Header: 'Color',
   sortable: true,
-  Filter: SetFilter,
+  Filter: NestedSetSelectFilter,
   Cell: FormatSetCell,
 };
 
@@ -42,7 +43,7 @@ const boolCol = {
   accessor: 'bool',
   Header: 'Bool',
   sortable: true,
-  Filter: BoolFilter,
+  Filter: StandardSelectFilter,
 }
 
 const data = [
