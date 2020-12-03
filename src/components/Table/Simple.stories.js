@@ -37,6 +37,7 @@ const colorCol = {
   sortable: true,
   Filter: NestedSetSelectFilter,
   Cell: FormatSetCell,
+  sortType: 'NestedSet'
 };
 
 const boolCol = {

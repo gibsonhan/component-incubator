@@ -85,6 +85,19 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
     }), []
   )
 
+  const sortTypes = React.useMemo(
+    () => ({
+      NestedSet: NestedSetSortFn
+    }), []
+  )
+
+  function NestedSetSortFn(rowA, rowB, columnId) {
+    //this is dependd that the rowSet Data is sorted
+    let a = rowA.original[columnId]?.join('').length || 0
+    let b = rowB.original[columnId]?.join('').length || 0
+    //react table handle if rowA > rowB return -1 vice versa
+    return a > b ? - 1 : 1
+  }
   const {
     getTableProps, // table props from react-table
     getTableBodyProps, // table body props from react-table
@@ -97,6 +110,7 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
       columns,
       data,
       defaultColumn,
+      sortTypes,
       ...tableProps
     },
     useFilters,
