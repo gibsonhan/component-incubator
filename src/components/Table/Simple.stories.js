@@ -1,10 +1,6 @@
 import React from 'react';
 
 import SimpleTable from 'components/Table/Simple';
-import NestedSetSelectFilter from 'components/SelectOptionFilter/NestedSetSelectFilter';
-import StandardSelectFilter from 'components/SelectOptionFilter/StandardSelectFilter';
-import FormatSetCell from 'components/Cell/FormatSetCell'
-import { appendData, appendSetData } from '../../dataGenerator/appendData';
 
 export default {
   title: 'Components/Table/SimpleTable',
@@ -29,32 +25,6 @@ const ageCol = {
   Header: 'Age',
   sortable: true,
 };
-
-const colorCol = {
-  id: 'color',
-  accessor: 'color',
-  Header: 'Color',
-  sortable: true,
-  Filter: NestedSetSelectFilter,
-  Cell: FormatSetCell,
-  sortType: 'NestedSet'
-};
-
-const boolCol = {
-  id: 'bool',
-  accessor: 'bool',
-  Header: 'Bool',
-  sortable: true,
-  Filter: StandardSelectFilter,
-}
-
-const meatCol = {
-  id: 'meat',
-  accessor: 'meat',
-  Header: 'Meat',
-  sortable: true,
-  Filter: StandardSelectFilter,
-}
 
 const data = [
   {
@@ -91,7 +61,6 @@ const data = [
     firstName: 'Sally',
     lastName: 'Simpson',
     age: 20,
-    color: ['green', 'black'],
     subRows: [
       {
         firstName: 'Sasha',
@@ -208,7 +177,7 @@ const data = [
   },
 ];
 
-const defaultCols = [{ ...firstNameCol }, { ...lastNameCol }, { ...ageCol }];
+const defaultCols = [{...firstNameCol}, {...lastNameCol}, {...ageCol}];
 const defaultTemplate = (args) => (<SimpleTable {...args} />);
 
 export const Default = defaultTemplate.bind();
@@ -232,12 +201,12 @@ EvenHeaderGroup.args = {
     {
       id: 'name',
       Header: 'Name',
-      columns: [{ ...firstNameCol }, { ...lastNameCol }],
+      columns: [{...firstNameCol}, {...lastNameCol}],
     },
     {
       id: 'info',
       Header: 'Info',
-      columns: [{ ...ageCol }],
+      columns: [{...ageCol}],
     },
   ],
   data,
@@ -251,32 +220,10 @@ UnevenHeaderGroup.args = {
     {
       id: 'name',
       Header: 'Name',
-      columns: [{ ...firstNameCol }, { ...lastNameCol }],
+      columns: [{...firstNameCol}, {...lastNameCol}],
     },
-    { ...ageCol },
+    {...ageCol},
   ],
   data,
   expandable: true,
 };
-
-//WIP need to handle column sort
-export const NestedSetOptionFilter = defaultTemplate.bind();
-NestedSetOptionFilter.args = {
-  columns: [...defaultCols, { ...colorCol }],
-  data: appendSetData(data, 'color', ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violent'].sort()),
-  expandable: false
-}
-
-export const BooleanOptionFilter = defaultTemplate.bind();
-BooleanOptionFilter.args = {
-  columns: [...defaultCols, { ...boolCol }],
-  data: appendData(data, 'bool', ['true', 'false']),
-  expandable: false,
-}
-
-export const MultipleOptionFilter = defaultTemplate.bind();
-MultipleOptionFilter.args = {
-  columns: [...defaultCols, { ...meatCol }],
-  data: appendData(data, 'meat', ['beef', 'chicken', 'pork', 'sheep', 'lamb', 'duck']),
-  expandable: false,
-}
