@@ -1,5 +1,15 @@
 @import '_variables';
 
+table {
+    position: relative;
+}
+
+th {
+    background-color: beige;
+    top:0;
+    position: sticky;
+}
+
 .simpleTable__container{
     background-color: $white;
     width: inherit;
