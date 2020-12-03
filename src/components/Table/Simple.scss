@@ -1,31 +1,5 @@
 @import '_variables';
 
-.simpleTable__container{
-    background-color: $white;
-    width: inherit;
-    height: inherit;
-
-    transition: 
-      width .4s ease-out,
-      height .3s ease-out;
-
-  &--fullscreen{
-    background-color: $white;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top:0%;
-    left:0%;
-    width: 100vw;
-    height: 100vh;
-    max-width: 100%; //100vw includes scrollbar area, this deals with it
-
-    transition: 
-      width .4s ease-out,
-      height .3s ease-out,
-  }
-}
-
 .simpleTable {
   &__expansion {
     width: 3em;
