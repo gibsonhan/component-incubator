@@ -48,6 +48,14 @@ const boolCol = {
   Filter: StandardSelectFilter,
 }
 
+const meatCol = {
+  id: 'meat',
+  accessor: 'meat',
+  Header: 'Meat',
+  sortable: true,
+  Filter: StandardSelectFilter,
+}
+
 const data = [
   {
     firstName: 'Joe',
@@ -263,5 +271,12 @@ export const BooleanOptionFilter = defaultTemplate.bind();
 BooleanOptionFilter.args = {
   columns: [...defaultCols, { ...boolCol }],
   data: appendData(data, 'bool', ['true', 'false']),
+  expandable: false,
+}
+
+export const MultipleOptionFilter = defaultTemplate.bind();
+MultipleOptionFilter.args = {
+  columns: [...defaultCols, { ...meatCol }],
+  data: appendData(data, 'meat', ['beef', 'chicken', 'pork', 'sheep', 'lamb', 'duck']),
   expandable: false,
 }
