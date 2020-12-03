@@ -177,7 +177,7 @@ const data = [
   },
 ];
 
-const defaultCols = [{...firstNameCol}, {...lastNameCol}, {...ageCol}];
+const defaultCols = [{ ...firstNameCol }, { ...lastNameCol }, { ...ageCol }];
 const defaultTemplate = (args) => (<SimpleTable {...args} />);
 
 export const Default = defaultTemplate.bind();
@@ -201,12 +201,12 @@ EvenHeaderGroup.args = {
     {
       id: 'name',
       Header: 'Name',
-      columns: [{...firstNameCol}, {...lastNameCol}],
+      columns: [{ ...firstNameCol }, { ...lastNameCol }],
     },
     {
       id: 'info',
       Header: 'Info',
-      columns: [{...ageCol}],
+      columns: [{ ...ageCol }],
     },
   ],
   data,
@@ -220,9 +220,9 @@ UnevenHeaderGroup.args = {
     {
       id: 'name',
       Header: 'Name',
-      columns: [{...firstNameCol}, {...lastNameCol}],
+      columns: [{ ...firstNameCol }, { ...lastNameCol }],
     },
-    {...ageCol},
+    { ...ageCol },
   ],
   data,
   expandable: true,
