@@ -3,43 +3,106 @@ import clsx from 'clsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 
-import { FULLSCREEN } from '../../global/reserved';
+import {
+    ACTIVE_ARIA_LABEL,
+    ACTIVE_CLASSNAME,
+    ACTIVE_ICON,
+    ACTIVE_TEXT,
+    ACTIVE_TITLE,
+    DEFAULT_ARIA_LABEL,
+    DEFAULT_CLASSNAME,
+    DEFAULT_ICON,
+    DEFAULT_TEXT,
+    DEFAULT_TITLE,
+    FILTER,
+    FULLSCREEN,
+    RESET_FILTER
+} from '../../global/reserved';
 import './Button.scss'
 
 const propTypes = {
     state: PropTypes.bool,
     type: PropTypes.string,
-    onClick: PropTypes.function,
-}
-
-const renderFullScreenIcon = (state) => {
-    const selectIcon = state === false
-        ? <FontAwesomeIcon icon="expand-arrows-alt" aria-label="expand fullscreen" />
-        : <FontAwesomeIcon icon="times-circle" aria-label="exit fullscreen" />
-    return <i className="button__icon">{selectIcon}</i>
-}
-
-function renderTitle(state) {
-    return state === false ? 'Press to Full Screen' : 'Press to Exit Full Screen'
+    onClick: PropTypes.func,
 }
 
 export default function Button({ type, state, onClick }) {
-    const ICON = {
-        [FULLSCREEN]: renderFullScreenIcon(state)
+    const ICON_TABLE = {
+        [FULLSCREEN]: {
+            [DEFAULT_ARIA_LABEL]: "expand fullscreen",
+            [DEFAULT_CLASSNAME]: 'button__fullscreen--expand',
+            [DEFAULT_ICON]: "expand-arrows-alt",
+            [DEFAULT_TEXT]: "Expand Fullscreen",
+            [DEFAULT_TITLE]: 'Press to Fullscreen',
+            [ACTIVE_ARIA_LABEL]: "exit fullscreen",
+            [ACTIVE_CLASSNAME]: 'button__fullscreen--exit',
+            [ACTIVE_ICON]: "times-circle",
+            [ACTIVE_TEXT]: "Exit Fullscreen",
+            [ACTIVE_TITLE]: 'Presss to Exit Fullscreen'
+        },
+        [FILTER]: {
+            [DEFAULT_ARIA_LABEL]: "show filter",
+            [DEFAULT_CLASSNAME]: 'button__filter--show',
+            [DEFAULT_ICON]: "filter",
+            [DEFAULT_TEXT]: "Show Filter",
+            [DEFAULT_TITLE]: 'Press to Show Filter',
+            [ACTIVE_ARIA_LABEL]: "hide filter",
+            [ACTIVE_ICON]: "filter",
+            [ACTIVE_CLASSNAME]: 'button__filter--hide',
+            [ACTIVE_TEXT]: "Hide Filter",
+            [ACTIVE_TITLE]: 'Presss to Hide Filter'
+        },
+        [RESET_FILTER]: {
+            [DEFAULT_ARIA_LABEL]: "reset filters",
+            [DEFAULT_CLASSNAME]: 'button__filter--reset',
+            [DEFAULT_ICON]: "redo",
+            [DEFAULT_TEXT]: "Reset Filters",
+            [DEFAULT_TITLE]: 'Press to Reset Filters',
+            [ACTIVE_ARIA_LABEL]: "",
+            [ACTIVE_ICON]: "",
+            [ACTIVE_CLASSNAME]: "",
+            [ACTIVE_TEXT]: "",
+            [ACTIVE_TITLE]: ""
+        },
     }
-    const TITLE = {
-        [FULLSCREEN]: renderTitle(state)
+
+    function renderIcon(key, state) {
+        const ICON = state === false
+            ? ICON_TABLE[key][DEFAULT_ICON]
+            : ICON_TABLE[key][ACTIVE_ICON]
+
+        const AIRA = state === false
+            ? ICON_TABLE[key][DEFAULT_ARIA_LABEL]
+            : ICON_TABLE[key][ACTIVE_ARIA_LABEL]
+
+        return <FontAwesomeIcon icon={ICON} aria-label={AIRA} />
     }
-    const BUTTONCLASSNAME = {
-        [FULLSCREEN]: clsx({ 'button__expandFullScreen': !state, 'button__exitFullScreen': state })
+
+    function renderTitle(key, state) {
+        return state === false
+            ? ICON_TABLE[key][DEFAULT_TITLE]
+            : ICON_TABLE[key][ACTIVE_TITLE]
+    }
+
+    function renderClassName(key, state) {
+        return state == false
+            ? ICON_TABLE[key][DEFAULT_CLASSNAME]
+            : ICON_TABLE[key][ACTIVE_CLASSNAME]
+    }
+
+    function renderButtonText(key, state) {
+        return state === false
+            ? ICON_TABLE[key][DEFAULT_TEXT]
+            : ICON_TABLE[key][ACTIVE_TEXT]
     }
 
     return (
-        <div className="button__container" onClick={onClick}>
-            <button className={BUTTONCLASSNAME[type]} title={TITLE[type]} type="button">
-                {ICON[type]}
-            </button>
-        </div >
+        <span className={renderClassName(type, state)}>
+            <div className="button__container" title={renderTitle(type, state)} onClick={onClick}>
+                <i className="button__icon">{renderIcon(type, state)}</i>
+                <div className="button__text">{renderButtonText(type, state)}</div>
+            </div >
+        </span >
     )
 }
 

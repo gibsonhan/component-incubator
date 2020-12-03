@@ -1,39 +1,23 @@
 @import '_variables';
-
-button, input[type="button"] {
-    background: none;
-    color: inherit;
-    outline: none;
-    border: 0;
-	padding: 0;
-	cursor: pointer;
-    font: inherit;
-
-    //WIP: there is a border when pressed
-    &:active, :focus{
-        border: 0;
-    }
-}
-
-button, input[type="button"]::-moz-focus-inner {
-   border: 0;
-}
+@import '_bootstrap_variables';
 
 .button__container{
+    min-width: 4em;
+    height:auto;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    align-items: center;
+    padding: $btn-padding-x;
 }
 
 .button {
-    &__expandFullScreen:hover{
-            color:$logo-blue;
-
+    &__text{
+        font-size: $btn-font-size;
     }
 
-    &__exitFullScreen:hover{
+    &__icon:hover{
         color:$logo-blue
     }
-
 }
 
 .button__icon {
