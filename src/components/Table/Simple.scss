@@ -1,13 +1,23 @@
 @import '_variables';
 
 table {
-    position: relative;
-}
+  position: relative;
+  overflow: visible; 
 
-th {
-    background-color: beige;
+  //WIP
+  td:first-of-type {
+    position: sticky;
+    z-index: 1;
+    left:0;
+    top: auto;
+  }
+  
+  th {
+    background: beige;
+    z-index: 1;
     top:0;
     position: sticky;
+  }
 }
 
 .simpleTable__container{
@@ -18,7 +28,7 @@ th {
     transition: 
       width .4s ease-out,
       height .3s ease-out;
-
+  
   &--fullscreen{
     background-color: $white;
     display: flex;
@@ -31,9 +41,20 @@ th {
     max-width: 100%; //100vw includes scrollbar area, this deals with it
 
     transition: 
-      width .4s ease-out,
-      height .3s ease-out,
+      width 1s ease-out,
+      height 1s ease-out;
   }
+}
+
+.simpleTable__scroller--container{
+  overflow-x: scroll;
+  overflow-y: visible;
+}
+
+.simpleTable__button--container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .simpleTable {
