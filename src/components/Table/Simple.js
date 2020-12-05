@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
@@ -11,6 +11,7 @@ import Button from '../Button/Button'
 import ColumnFilter from '../ColumnFilter/ColumnFilter'
 
 import './Simple.scss';
+import ContextMenu from '../ContextMenu/ContextMenu';
 
 const propTypes = {
   tableProps: PropTypes.object,
@@ -30,7 +31,26 @@ const propTypes = {
 export default function SimpleTable({ tableProps = {}, columns = [], data, expandable = false, className }) {
   const [fullscreen, setFullScreen] = useState(false)
   const [showFilter, setShowFilter] = useState(false)
+  const [contextMenuProp, setContextMenuProp] = useState({ show: false, coord: { x: 0, y: 0 } })
 
+  useEffect(() => {
+    window.addEventListener('contextmenu', e => showContextMenu(e))
+    return window.removeEventListener('contextmenu', (e) => showContextMenu(e))
+  }, [showContextMenu])
+
+  function showContextMenu(e) {
+    e.preventDefault()
+    if (contextMenuProp.show === false) {
+      const obj = {
+        show: true,
+        coord: {
+          x: e.clientX,
+          y: e.clientY
+        }
+      }
+      setContextMenuProp(prop => obj)
+    }
+  }
   const renderExpansionIcon = (expanded) => {
     if (expanded) {
       return <FontAwesomeIcon icon="chevron-right" className="simpleTable__expansion--rotateOpen" />;
@@ -134,6 +154,7 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
 
   return (
     <div className={clsx({ 'simpleTable__container': !fullscreen, 'simpleTable__container--fullscreen': fullscreen })}>
+      <ContextMenu show={contextMenuProp.show} coord={contextMenuProp.coord} />
       <div className="simpleTable__button--container">
         <Button type={FULLSCREEN} state={fullscreen} onClick={() => setFullScreen(state => !state)} />
         <Button type={FILTER} state={showFilter} onClick={() => setShowFilter(state => !state)} />
