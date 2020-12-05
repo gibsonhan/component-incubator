@@ -31,24 +31,24 @@ const propTypes = {
 export default function SimpleTable({ tableProps = {}, columns = [], data, expandable = false, className }) {
   const [fullscreen, setFullScreen] = useState(false)
   const [showFilter, setShowFilter] = useState(false)
-  const [contextMenuProp, setContextMenuProp] = useState({ show: false, coord: { x: 0, y: 0 } })
+  const [showContextMenu, setShowContextMenu] = useState(false)
+  const [contextMenuPos, setContextMenuPos] = useState({ top: 0, left: 0 })
 
   useEffect(() => {
-    window.addEventListener('contextmenu', e => showContextMenu(e))
-    return window.removeEventListener('contextmenu', (e) => showContextMenu(e))
+    window.addEventListener('contextmenu', e => handleContextMenu(e))
+    return window.removeEventListener('contextmenu', (e) => handleContextMenu(e))
   }, [showContextMenu])
 
-  function showContextMenu(e) {
+  function handleContextMenu(e) {
     e.preventDefault()
-    if (contextMenuProp.show === false) {
-      const obj = {
-        show: true,
-        coord: {
-          x: e.clientX,
-          y: e.clientY
-        }
+    if (!showContextMenu) {
+      let posObj = {
+        top: e.clientY,
+        left: e.clientX,
+        target: e.target
       }
-      setContextMenuProp(prop => obj)
+      setShowContextMenu(state => !state)
+      setContextMenuPos(props => posObj)
     }
   }
   const renderExpansionIcon = (expanded) => {
@@ -151,70 +151,75 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
     }
     return '';
   };
-
   return (
-    <div className={clsx({ 'simpleTable__container': !fullscreen, 'simpleTable__container--fullscreen': fullscreen })}>
-      <ContextMenu show={contextMenuProp.show} coord={contextMenuProp.coord} />
-      <div className="simpleTable__button--container">
-        <Button type={FULLSCREEN} state={fullscreen} onClick={() => setFullScreen(state => !state)} />
-        <Button type={FILTER} state={showFilter} onClick={() => setShowFilter(state => !state)} />
-        {showFilter && <Button type={RESET_FILTER} state={false} onClick={() => setAllFilters([])} />}
-      </div>
-      <table {...getTableProps()} className={clsx('simpleTable', className)}>
+    <>
+      <div className={clsx({ 'simpleTable__container': !fullscreen, 'simpleTable__container--fullscreen': fullscreen })}>
+        <ContextMenu
+          show={showContextMenu}
+          setShow={setShowContextMenu}
+          pos={contextMenuPos}
+        />
+        <div className="simpleTable__button--container">
+          <Button type={FULLSCREEN} state={fullscreen} onClick={() => setFullScreen(state => !state)} />
+          <Button type={FILTER} state={showFilter} onClick={() => setShowFilter(state => !state)} />
+          {showFilter && <Button type={RESET_FILTER} state={false} onClick={() => setAllFilters([])} />}
+        </div>
+        <table {...getTableProps()} className={clsx('simpleTable', className)}>
 
-        <thead>{
-          headerGroups.map((headerGroup, hdrIdx) => {
-            const isGroup = headerGroups.length > 1 && hdrIdx !== headerGroups.length - 1;
-            return (
-              <tr {...headerGroup.getHeaderGroupProps()} className={clsx({ simpleTable__group: isGroup })}>
-                {headerGroup.headers.map((column, idx) => {
-                  const addBorder = idx > 0 && isGroup;
-                  const headerProps = column.sortable ? column.getSortByToggleProps() : {};
-                  headerProps.className = clsx(column.className, {
-                    'simpleTable__group--border': addBorder,
-                  });
-                  headerProps.style = column.style;
-                  return (
-                    <th {...column.getHeaderProps(headerProps)}>
-                      {column.render('Header')}
-                      {renderSortIcon(column)}
-                      {showFilter && <div>{column.canFilter ? column.render('Filter') : <></>}</div>}
-                    </th>
-                  );
-                })}
-              </tr>
-            );
-          })
-        }
-        </thead>
-        <tbody {...getTableBodyProps()}>{
-          rows.map((row) => {
-            prepareRow(row);
-            return (
-              // eslint-disable-next-line react/prop-types
-              <tr {...row.getRowProps()}>
-                {
-                  // eslint-disable-next-line react/prop-types
-                  row.cells.map((cell) => (
-                    <td
-                      {...cell.getCellProps([
-                        {
-                          className: cell.column.className,
-                          style: cell.column.style,
-                        },
-                      ])}
-                    >
-                      {cell.render('Cell')}
-                    </td>
-                  ))
-                }
-              </tr>
-            );
-          })
-        }
-        </tbody>
-      </table>
-    </div>
+          <thead>{
+            headerGroups.map((headerGroup, hdrIdx) => {
+              const isGroup = headerGroups.length > 1 && hdrIdx !== headerGroups.length - 1;
+              return (
+                <tr {...headerGroup.getHeaderGroupProps()} className={clsx({ simpleTable__group: isGroup })}>
+                  {headerGroup.headers.map((column, idx) => {
+                    const addBorder = idx > 0 && isGroup;
+                    const headerProps = column.sortable ? column.getSortByToggleProps() : {};
+                    headerProps.className = clsx(column.className, {
+                      'simpleTable__group--border': addBorder,
+                    });
+                    headerProps.style = column.style;
+                    return (
+                      <th {...column.getHeaderProps(headerProps)}>
+                        {column.render('Header')}
+                        {renderSortIcon(column)}
+                        {showFilter && <div>{column.canFilter ? column.render('Filter') : <></>}</div>}
+                      </th>
+                    );
+                  })}
+                </tr>
+              );
+            })
+          }
+          </thead>
+          <tbody {...getTableBodyProps()}>{
+            rows.map((row) => {
+              prepareRow(row);
+              return (
+                // eslint-disable-next-line react/prop-types
+                <tr {...row.getRowProps()}>
+                  {
+                    // eslint-disable-next-line react/prop-types
+                    row.cells.map((cell) => (
+                      <td
+                        {...cell.getCellProps([
+                          {
+                            className: cell.column.className,
+                            style: cell.column.style,
+                          },
+                        ])}
+                      >
+                        {cell.render('Cell')}
+                      </td>
+                    ))
+                  }
+                </tr>
+              );
+            })
+          }
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
 

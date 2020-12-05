@@ -1,0 +1,26 @@
+.contextMenu__container {
+    z-index: 2;
+    position: fixed;
+    background-color: beige;
+    padding: 1em .5em;
+    border-radius: 1em;
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.15);
+
+
+    ul{
+        padding: .5em .25em;
+        margin: 0;
+        list-style: none;
+
+        li{
+            display: flex;
+            justify-content: flex-start;
+            padding: 1em 1em;
+        } 
+
+        li:hover{
+           background-color:grey;
+           border-radius: .25em;
+       } 
+    }
+}
