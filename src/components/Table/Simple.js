@@ -45,8 +45,12 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
       let posObj = {
         top: e.clientY,
         left: e.clientX,
-        target: e.target
       }
+      //row container
+      //column position
+      console.log(e)
+      let array = [...e.target.parentNode.childNodes].indexOf(e.target)
+      console.log('hello', array.indexOf(e.target))
       setShowContextMenu(state => !state)
       setContextMenuPos(props => posObj)
     }
@@ -165,7 +169,6 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
           {showFilter && <Button type={RESET_FILTER} state={false} onClick={() => setAllFilters([])} />}
         </div>
         <table {...getTableProps()} className={clsx('simpleTable', className)}>
-
           <thead>{
             headerGroups.map((headerGroup, hdrIdx) => {
               const isGroup = headerGroups.length > 1 && hdrIdx !== headerGroups.length - 1;
@@ -196,7 +199,9 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
               prepareRow(row);
               return (
                 // eslint-disable-next-line react/prop-types
-                <tr {...row.getRowProps()}>
+                <tr {...row.getRowProps({
+                  className: 'row--' + row.id
+                })}>
                   {
                     // eslint-disable-next-line react/prop-types
                     row.cells.map((cell) => (

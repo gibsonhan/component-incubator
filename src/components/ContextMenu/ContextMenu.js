@@ -1,3 +1,4 @@
+import { debounce } from "lodash"
 import { useEffect, useRef, useState } from "react"
 
 import './ContextMenu.scss'
@@ -9,13 +10,21 @@ export default function ContextMenu({ pos, show, setShow }) {
     //I think I need to add high light feature before freezing
     //This feature plays out to printing selected rows
 
-    function outsideClick(e) {
-        console.log(e.target)
+    function handleOutsideClick(e) {
         if (!ref.current || ref.current.contains?.(e.target)) {
             return
         }
         setShow(() => false)
     }
+
+    //handling freeze column. what you need to do is step up to the th element and add a classname
+    // as for row? covert the tr to thead then freeze with sticky
+
+    function handleMenuClick(e) {
+        console.log('menu click')
+        //if (!ref.current && ref.current.contains(e.target)) return
+    }
+
 
     useEffect(() => {
         //WIP: Onclick it renders 3 time
@@ -23,9 +32,14 @@ export default function ContextMenu({ pos, show, setShow }) {
     }, [pos, show])
 
     useEffect(() => {
-        window.addEventListener('mousedown', e => outsideClick(e), false)
-        return () => window.removeEventListener('mousedown', e => outsideClick(e), false)
-    }, [outsideClick])
+        window.addEventListener('mousedown', handleOutsideClick, false)
+        return () => window.removeEventListener('mousedown', e => handleOutsideClick(e), false)
+    }, [handleOutsideClick])
+
+    useEffect(() => {
+        window.addEventListener('mouseup', e => handleMenuClick(e), false)
+        return () => window.removeEventListener('mouseup', e => handleMenuClick(e), false)
+    }, [handleMenuClick])
 
     const style = {
         top: pos.top,
