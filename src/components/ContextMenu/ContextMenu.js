@@ -22,7 +22,20 @@ export default function ContextMenu({ pos, show, setShow }) {
 
     function handleMenuClick(e) {
         console.log('menu click')
-        //if (!ref.current && ref.current.contains(e.target)) return
+        console.log(pos.rowClassName)
+        let parentNode = document.getElementsByClassName(pos.rowClassName)[0]
+        let oldNode = parentNode.childNodes[0]
+        let oldNodeText = oldNode.innerText
+        let newNode = document.createElement("th")
+        newNode.setAttribute("role", "cell")
+        newNode.setAttribute("style", "sticky")
+        //newNode.style = "position: sticky"
+        let newNodeContent = document.createTextNode(oldNodeText)
+        newNode.append(newNodeContent)
+
+        console.log(oldNode, newNode)
+        parentNode.replaceChild(newNode, parentNode.childNodes[1])
+        console.log(parentNode)
     }
 
 

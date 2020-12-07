@@ -41,16 +41,15 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
 
   function handleContextMenu(e) {
     e.preventDefault()
+    //colIndx: [...e.target.parentNode.childNodes].indexOf(e.target),
+    console.log('hello world', e)
     if (!showContextMenu) {
       let posObj = {
         top: e.clientY,
         left: e.clientX,
+        rowClassName: e.target.parentNode.className
       }
-      //row container
-      //column position
-      console.log(e)
-      let array = [...e.target.parentNode.childNodes].indexOf(e.target)
-      console.log('hello', array.indexOf(e.target))
+      console.log(posObj)
       setShowContextMenu(state => !state)
       setContextMenuPos(props => posObj)
     }
