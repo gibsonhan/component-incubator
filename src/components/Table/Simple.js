@@ -31,6 +31,7 @@ const propTypes = {
 export default function SimpleTable({ tableProps = {}, columns = [], data, expandable = false, className }) {
   const [fullscreen, setFullScreen] = useState(false)
   const [showFilter, setShowFilter] = useState(false)
+  const [tableSetting, setTableSetting] = useState({ columnFreeze: [], rowFreeze: [], columnFrezeCount: 1, rowFreezeCount: 1 })
   const [showContextMenu, setShowContextMenu] = useState(false)
   const [contextMenuPos, setContextMenuPos] = useState({ top: 0, left: 0 })
 
@@ -39,15 +40,19 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
     return window.removeEventListener('contextmenu', (e) => handleContextMenu(e))
   }, [showContextMenu])
 
+  useEffect(() => {
+    console.log(tableSetting)
+  }, [tableSetting])
+
   function handleContextMenu(e) {
     e.preventDefault()
     //colIndx: [...e.target.parentNode.childNodes].indexOf(e.target),
-    console.log('hello world', e)
     if (!showContextMenu) {
       let posObj = {
         top: e.clientY,
         left: e.clientX,
-        rowClassName: e.target.parentNode.className
+        rowClassName: e.target.parentNode.className,
+        rowNumber: e.target.parentNode.className.replace("row--")
       }
       console.log(posObj)
       setShowContextMenu(state => !state)
@@ -160,6 +165,8 @@ export default function SimpleTable({ tableProps = {}, columns = [], data, expan
         <ContextMenu
           show={showContextMenu}
           setShow={setShowContextMenu}
+          tableSetting={tableSetting}
+          setTableSetting={setTableSetting}
           pos={contextMenuPos}
         />
         <div className="simpleTable__button--container">

@@ -2,7 +2,7 @@ import { debounce } from "lodash"
 import { useEffect, useRef, useState } from "react"
 
 import './ContextMenu.scss'
-export default function ContextMenu({ pos, show, setShow }) {
+export default function ContextMenu({ pos, show, setShow, setTableSetting, tableSetting }) {
     if (!show) return <></>
     const ref = useRef()
     const [type, setStype] = useState()
@@ -21,37 +21,48 @@ export default function ContextMenu({ pos, show, setShow }) {
     // as for row? covert the tr to thead then freeze with sticky
 
     function handleMenuClick(e) {
-        console.log('menu click')
-        console.log(pos.rowClassName)
+        if (!pos.rowClassName || !ref.current || !ref.current.contains?.(e.target)) return
         let parentNode = document.getElementsByClassName(pos.rowClassName)[0]
-        let oldNode = parentNode.childNodes[0]
-        let oldNodeText = oldNode.innerText
-        let newNode = document.createElement("th")
-        newNode.setAttribute("role", "cell")
-        newNode.setAttribute("style", "sticky")
-        //newNode.style = "position: sticky"
-        let newNodeContent = document.createTextNode(oldNodeText)
-        newNode.append(newNodeContent)
+        console.log(parentNode)
+        //if <parent Tr cointains mark", prevent function execution
+        if (parentNode.className === parentNode.className + '__sticky') return
+        parentNode.className = parentNode.className + "-sticky"
+        parentNode.style.backgroundColor = 'beige'
+        let childNodes = parentNode.childNodes
 
-        console.log(oldNode, newNode)
-        parentNode.replaceChild(newNode, parentNode.childNodes[1])
+
+        for (let child of childNodes) {
+            child.className = "row__cell-sticky"
+            child.style.position = "sticky"
+            child.style.zIndex = '2'
+            //As we add more freeze row. Top needs to outset those already froozen
+            child.style.top = tableSetting.rowFreezeCount * 38.61 + 'px'
+        }
+
+        //After sticky, cache the paretNode name, and update the sticky count for future offset
+        setTableSetting(props => ({
+            ...props,
+            rowFreeze: [...props.rowFreeze, parentNode.className],
+            rowFreezeCount: props.rowFreezeCount + 1
+        }))
+
         console.log(parentNode)
     }
 
 
     useEffect(() => {
         //WIP: Onclick it renders 3 time
-        console.log(pos)
+        //console.log(pos)
     }, [pos, show])
 
     useEffect(() => {
         window.addEventListener('mousedown', handleOutsideClick, false)
-        return () => window.removeEventListener('mousedown', e => handleOutsideClick(e), false)
+        return () => window.removeEventListener('mousedown', handleOutsideClick, false)
     }, [handleOutsideClick])
 
     useEffect(() => {
-        window.addEventListener('mouseup', e => handleMenuClick(e), false)
-        return () => window.removeEventListener('mouseup', e => handleMenuClick(e), false)
+        window.addEventListener('mouseup', handleMenuClick, false)
+        return () => window.removeEventListener('mouseup', handleMenuClick, false)
     }, [handleMenuClick])
 
     const style = {
